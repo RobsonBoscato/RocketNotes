@@ -54,7 +54,7 @@ export const Container = styled.header`
 
     > svg {
         color: ${({ theme }) => theme.COLORS.GRAY_100 };
-        font-size: 24px;
+        font-size: 30px;
     }
     
     `;
