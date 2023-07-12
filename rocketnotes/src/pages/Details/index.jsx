@@ -1,10 +1,10 @@
 import { Container, Links, Content } from "./styles";
 
+import { Tag } from "../../components/Tag";
 import { Header } from "../../components/Header";
 import { Button } from "../../components/buttons";
-import { ButtonText } from "../../components/ButtonText";
 import { Section } from "../../components/Section";
-import { Tag } from "../../components/Tag";
+import { ButtonText } from "../../components/ButtonText";
 
 
 export function Details() {
