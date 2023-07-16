@@ -1,9 +1,8 @@
-import { Button } from '../../components/buttons'
-import {FiMail, FiLock } from "react-icons/fi";
-import { Input } from '../../components/Input'
-import { Link } from 'react-router-dom'
-
 import { Background, Container, Form } from './styles'
+import { Input } from '../../components/Input'
+import { Button } from '../../components/buttons'
+
+import {FiMail, FiLock } from "react-icons/fi";
 
 export function SignIn(){
   return (
@@ -28,9 +27,9 @@ export function SignIn(){
 
         <Button title='Acess'/>
 
-        <Link to="/register">
+        <a href="#">
           Create Account
-        </Link>
+        </a>
       </Form>
 
       <Background/>
