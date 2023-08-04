@@ -1,4 +1,8 @@
+import { useState, useEffect } from "react";
 import { Container, Links, Content } from "./styles";
+import { useParams, useNavigate } from "react-router-dom";
+
+import { api } from "../../services/api";
 
 import { Tag } from "../../components/Tag";
 import { Header } from "../../components/Header";
@@ -6,46 +10,96 @@ import { Button } from "../../components/buttons";
 import { Section } from "../../components/Section";
 import { ButtonText } from "../../components/ButtonText";
 
-
 export function Details() {
+  const [data, setData] = useState(null)
+
+  const params = useParams()
+  const navigate = useNavigate()
+
+  function handleBack() {
+    navigate('/')
+  }
+
+  async function handleRemove() {
+    const confirm = window.confirm('Are you sure you want to delete this note?')
+
+    if (confirm) {
+      await api.delete(`/notes/${params.id}`) 
+      navigate('/')
+    }
+    
+  }
+
+
+  useEffect(() => {
+    async function fetchNote() {
+      const response = await api.get(`/notes/${params.id}`)
+      setData(response.data)      
+    }
+    fetchNote()
+ 
+  }, [] )
 
   return (
   
     <Container>
      <Header/>
 
-    <main>
+    {
+      data &&
+      <main>
       <Content>
-        <ButtonText title="Delete Note"/>
+        <ButtonText 
+          title="Delete Note"
+          onClick={handleRemove}
+        />
 
-          <h1>React Introduction</h1>
+          <h1>{data.title} </h1>
           
           <p>
-            ReactJS is a JavaScript library used for building user interfaces. It was developed and is maintained by Facebook and is commonly used for building single-page applications and mobile applications. ReactJS allows developers to create reusable UI components and manage the state of those components in an efficient way. <br /><br />
-
-            ReactJS is known for its ability to handle complex and interactive user interfaces with ease. It uses a virtual DOM (Document Object Model) which allows it to efficiently update and render components, resulting in faster performance and smoother user experience. <br/>
-
-            ReactJS is also highly flexible and can be used with other libraries and frameworks. Overall is a popular choice for developers looking to create dynamic and responsive user interfaces.
+            {data.description}
           </p>
 
+         { 
+          data.links &&
           <Section title = "Useful links">
-            <Links>
-              <li> <a href="#">https://www.rocketseat.com.br/</a></li>
-              <li> <a href="#">https://www.rocketseat.com.br/</a></li>
-            </Links>
-          </Section>
+              <Links>
+                {
+                  data.links.map(link => (
+                    <li key={String(link.id)}> 
+                      <a href={link.url} target="_blank">
+                        {link.url}
+                      </a>
+                    </li>
+                  ))
+                }
+              </Links>
+            </Section>
+          }
 
-          <Section title = "Bookmarks">
-            <Tag title ="Express"> </Tag>
-            <Tag title ="NodeJS"> </Tag>
-            <Tag title ="ReactJS"> </Tag>
-            <Tag title ="TypeScript"> </Tag>
-          </Section>
+          {
+            data.tags &&
+            <Section title = "Bookmarks">
+              {
+                data.tags.map(tag => (
+                  <Tag 
+                    key={String(tag.id)}
+                    title ={tag.name}
+                  />
+                ))
+              }
 
-        <Button title = "Back"/>
+            </Section>
+          }
+
+        <Button 
+          title = "Back"
+          onClick={() => handleBack()}          
+        />
       
       </Content>
     </main>
+    }
 
     </Container>
   )

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import {FiPlus, FiSearch} from 'react-icons/fi';
+import { useNavigate } from 'react-router-dom';
 
 import {Container, Brand, Menu, Search, Content, NewNote} from "./styles";
 
@@ -15,6 +16,8 @@ export function Home(){
     const [notes, setNotes] = useState([])
     const [tags, setTags] = useState([])
     const [tagSelected, setTagsSelected] = useState([])
+
+    const navigate = useNavigate()
 
     function handleTagSelected(tagName) {
         const alreadySelected = tagSelected.includes(tagName)
@@ -32,10 +35,14 @@ export function Home(){
         }
     }
 
+    function handleDetails(id) {
+        navigate(`/details/${id}`)
+    }
+
     useEffect(() => {
         async function fetchTags(){
-        const response = await api.get("/tags")
-        setTags(response.data)
+            const response = await api.get("/tags")
+            setTags(response.data)
         }
 
         fetchTags()
@@ -95,6 +102,7 @@ export function Home(){
                             <Note 
                                 key={String(note.id)}
                                 data={note}
+                                onClick={() => handleDetails(note.id)}
                             />
                         ))
                     }
