@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect } from "react";
+import { Navigate } from "react-router-dom";
 
 import { api } from "../services/api"
 
@@ -28,13 +29,12 @@ function AuthProvider({ children }) {
       }
     }
   }
-
+  
   function signOut() {
     localStorage.removeItem("@rocketnotes:token")
     localStorage.removeItem("@rocketnotes:user")
 
     // localStorage.clear()
-
     setData({})    
   }
     
