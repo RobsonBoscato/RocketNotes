@@ -48,10 +48,10 @@ export function SignUp(){
         <h2>Create your account</h2>
   
         <Input 
-        placeholder='Name'
-        type='text'
-        icon={FiUser}
-        onChange={e => setName(e.target.value)} 
+          placeholder='Name'
+          type='text'
+          icon={FiUser}
+          onChange={e => setName(e.target.value)} 
         />
 
         <Input 

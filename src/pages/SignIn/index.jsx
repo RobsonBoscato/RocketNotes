@@ -30,6 +30,9 @@ export function SignIn(){
         <h2>Start your Login </h2>
 
         <Input 
+        title='Testing Login'
+        label='Testing Login'
+        
         placeholder='E-mail'
         type='text'
         icon={FiMail}
@@ -43,7 +46,7 @@ export function SignIn(){
         onChange={e => setPassword(e.target.value)}
         />
 
-        <Button title='Acess' onClick={handleSignIn}/>
+        <Button title='jong' onClick={handleSignIn}/>
 
         <Link to="/register">
           Create Account
